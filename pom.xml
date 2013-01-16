@@ -54,6 +54,7 @@
 			</properties>
 		</profile>
 		<profile>
+			<properties>
 			</properties>
 		</profile>
 	</profiles>
