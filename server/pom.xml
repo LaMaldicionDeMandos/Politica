@@ -25,6 +25,7 @@
 		<mongo.driver.version>2.8.0-RC1</mongo.driver.version>
 		<jackson.version>1.8.5</jackson.version>
 		<commons.lang.version>2.6</commons.lang.version>
+		<commons.codec.version>1.5</commons.codec.version>
 		<commons.collections.version>3.2.1</commons.collections.version>
 	</properties>
 
@@ -56,7 +57,11 @@
 			<artifactId>commons-collections</artifactId>
 			<version>${commons.collections.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons.codec.version}</version>
+		</dependency>
 		<!-- Json -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

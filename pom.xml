@@ -46,6 +46,10 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
+				<facebook.client.id>571329436210439</facebook.client.id>
+				<facebook.client.secret>cf394321c0aeb8c86881d2d0997d0fbc</facebook.client.secret>
+				<facebook.app.url>http://apps.facebook.com/arpolitica/</facebook.app.url>
+				<facebook.app.scope />
 			</properties>
 		</profile>
 		<profile>

@@ -14,6 +14,7 @@ public class PoliticaWebModule extends ServletModule {
 		
 		Names.bindProperties(binder(), properties);
 		install(new ServletModule());
+		install(new CommonsModule());
 		install(new AuthenticationModule());
 		install(new ResourcesModule());
 		
