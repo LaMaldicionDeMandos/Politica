@@ -8,7 +8,8 @@ public class AuthenticationModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
-//		filter("/rest/facebook/").through(FacebookAuthServletFilter.class);
+		filter("/rest/facebook/").through(FacebookAuthServletFilter.class);
+
 //		bind(FacebookMobileAuthenticationResource.class);
 //		bind(FacebookMobileIndexResource.class);
 	}

@@ -11,15 +11,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
 @Path("/facebook")
 public class FacebookIndexResource {
-	
-	@Inject
-	public FacebookIndexResource(){}
 
 	@GET
 	@POST

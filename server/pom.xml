@@ -15,7 +15,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- versions -->
 		<resteasy.version>2.3.4.Final</resteasy.version>
-		<guice.version>3.0-rc3</guice.version>
+		<guice.version>3.0</guice.version>
 		<jstl.version>1.1.2</jstl.version>
 		<junit.version>4.9</junit.version>
 		<servlet.version>2.5</servlet.version>

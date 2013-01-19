@@ -8,8 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Singleton;
 
@@ -20,7 +18,7 @@ public class FacebookAuthServletFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		chain.doFilter((HttpServletRequest)request, (HttpServletResponse)response);
+		chain.doFilter(request, response);
 	}
 
 	public void destroy() {}
