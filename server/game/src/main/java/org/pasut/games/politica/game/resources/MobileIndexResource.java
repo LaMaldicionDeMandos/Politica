@@ -11,15 +11,23 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 
 @Singleton
 @Path("/mobile")
 public class MobileIndexResource {
+	private final String index;
+	
+	@Inject
+	public MobileIndexResource(@Named("android.index") String index){
+		this.index = index;
+	}
+	
 	@GET
 	@POST
-	public void getIndex(@HeaderParam("User-Agent") String userAgent, @Context HttpServletRequest req,
-			@Context HttpServletResponse res) throws ServletException, IOException{
-		req.getRequestDispatcher("/movile-index.html").forward(req, res);
+	public void getIndex(@HeaderParam("User-Agent") String userAgent, @Context HttpServletRequest request, @Context HttpServletResponse response) throws ServletException, IOException{
+		request.getRequestDispatcher(index).forward(request, response);
 	}
 }

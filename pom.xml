@@ -50,6 +50,9 @@
 				<facebook.client.secret>cf394321c0aeb8c86881d2d0997d0fbc</facebook.client.secret>
 				<facebook.app.url>http://apps.facebook.com/arpolitica/</facebook.app.url>
 				<facebook.app.scope />
+				
+				<facebook.index>/WEB-INF/pages/index.jsp</facebook.index>
+				<android.index>/WEB-INF/pages/androidIndex.jsp</android.index>
 			</properties>
 		</profile>
 		<profile>
