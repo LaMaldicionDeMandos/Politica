@@ -179,5 +179,12 @@
 			<artifactId>guice-servlet</artifactId>
 			<version>${guice.version}</version>
 		</dependency>
+		
+		<!-- Persister Service -->
+		<dependency>
+		    <groupId>org.pasut.persister</groupId>
+		    <artifactId>persister-service</artifactId>
+		    <version>${persister.version}</version>
+		</dependency>
 	</dependencies>
 </project>
