@@ -11,6 +11,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.pasut.games.politica.game.domain.User;
+import org.pasut.games.politica.game.domain.UserPlatform;
+import org.pasut.games.politica.game.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,10 +26,12 @@ public class FacebookAuthServletFilter implements Filter {
 			.getLogger(FacebookAuthServletFilter.class);
 	
 	private final FacebookAuthenticationService facebookService;
+	private final UserService userService;
 	
 	@Inject
-	public FacebookAuthServletFilter(FacebookAuthenticationService facebookService){
+	public FacebookAuthServletFilter(FacebookAuthenticationService facebookService, UserService userService){
 		this.facebookService = facebookService;
+		this.userService = userService;
 	}
 
 	public void init(FilterConfig filterConfig) throws ServletException {}
@@ -51,18 +56,25 @@ public class FacebookAuthServletFilter implements Filter {
 	
 	private void validateUserOrPermissions(ServletRequest request,
 			ServletResponse response, FilterChain chain,
-			FacebookUser user) throws IOException, ServletException {
-		if (StringUtils.isEmpty(user.getUser_id())) {
+			FacebookUser facebookUser) throws IOException, ServletException {
+		if (StringUtils.isEmpty(facebookUser.getUser_id())) {
 			redirectUser(response);
 			return;
 		}
-//		User user = userService.getUserAndSetRequestAttributes(request, facebookUser);
-//		if (!user.hasPermissionApproved(configuration.getFacebookRequestdScope())) {
-//			redirectUser(response);
-//			return;
-//		}
-//		LOGGER.debug("Facebook permissions. The user has the necessary permits");
-		continueFilterChain(request, response, chain);
+		User user = null;
+		try{
+			user = userService.findUserByPlatform(facebookUser.getUser_id(), UserPlatform.FACEBOOK);		
+		}catch(UserNotFoundException e){
+			user = userService.addNewUser(	UserPlatform.FACEBOOK,
+											facebookUser.getUser_id(), 
+											facebookUser.getUser().getCountry(), 
+											facebookUser.getUser().getLocale());
+			user.setNew(true);
+		}
+		finally{
+			request.setAttribute("user", user);
+			continueFilterChain(request, response, chain);			
+		}
 	}
 	
 	private void redirectUser(ServletResponse response) throws IOException {

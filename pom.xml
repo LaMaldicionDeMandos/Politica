@@ -53,6 +53,9 @@
 				
 				<facebook.index>/WEB-INF/pages/index.jsp</facebook.index>
 				<android.index>/WEB-INF/pages/androidIndex.jsp</android.index>
+				
+				<db.host>localhost</db.host>
+				<db.port>27017</db.port>
 			</properties>
 		</profile>
 		<profile>
@@ -66,6 +69,7 @@
 		</profile>
 	</profiles>
 	<properties>
+		<db.name>politica</db.name>
 	</properties>
 	<modules>
 		<module>server</module>

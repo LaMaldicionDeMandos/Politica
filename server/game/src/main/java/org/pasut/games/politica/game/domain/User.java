@@ -12,6 +12,7 @@ public class User {
 	private String code;
 	private String country;
 	private String locale;
+	private UserPlatform platform = UserPlatform.FACEBOOK;
 	private boolean isNew;
 	
 	public User(){}
@@ -76,6 +77,14 @@ public class User {
 	@Override
 	public int hashCode(){
 		return this.code.hashCode();
+	}
+
+	public UserPlatform getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(UserPlatform platform) {
+		this.platform = platform;
 	}
 	
 }
