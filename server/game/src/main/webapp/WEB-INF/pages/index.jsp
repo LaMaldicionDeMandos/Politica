@@ -7,6 +7,7 @@
 <meta charset="ISO-8859-1">
 
 <script type="text/javascript" src="../../js/libs/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="../../js/libs/json2.js"></script>
 <link rel="stylesheet" href="../../styles/style.css"
 	type="text/css" />
 <title>Politica</title>
@@ -14,8 +15,6 @@
 <body style="margin-left: 0;">
 <div id="fb-root"></div>
 <script>
-	//Script para cargar el preloading
-	
 </script>
 <script>
 	(function() {
@@ -64,9 +63,22 @@
 	   }(document));
 	  $('#hello').hide();
 </script>
+<script>
+function testNewElections(){
+	var user = JSON.parse('<%= request.getAttribute("user") %>');	
+	$.ajax({
+		type : 'POST',
+		url : '../election/',
+		dataType : 'json',
+		contentType : 'application/json',
+		data: JSON.stringify(user)
+	});
+}
+</script>
 	<div id=loadingPanel class="loading">
 		<img src="../../assets/loading.gif">
 	</div>
 	<h1 id="hello"></h1>
+	<button onclick="testNewElections()">Prueba Nuevas Elecciones</button>
 </body>
 </html>

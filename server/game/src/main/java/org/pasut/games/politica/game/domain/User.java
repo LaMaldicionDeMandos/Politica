@@ -1,15 +1,16 @@
 package org.pasut.games.politica.game.domain;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.pasut.persister.Entity;
+
+import com.google.gson.Gson;
 
 @Entity("users")
 public class User {
 	@JsonProperty("_id")
 	private String id;
 	
-	private String code;
+	private String code = "";
 	private String country;
 	private String locale;
 	private UserPlatform platform = UserPlatform.FACEBOOK;
@@ -27,14 +28,23 @@ public class User {
 	}
 	
 	public User(boolean isNew){
+		
 		this.isNew = isNew;
 	}
-
+	
+	public String getId(){
+		return id;
+	}
+	
+	public void setId(String id){
+		this.id = id;
+	}
+	
 	public String getCode() {
 		return code;
 	}
-
-	public void setCode(String code) {
+	
+	public void setCode(String code){
 		this.code = code;
 	}
 
@@ -58,13 +68,14 @@ public class User {
 		return isNew;
 	}
 
-	public void setNew(boolean isNew) {
+	public void setIsNew(boolean isNew) {
 		this.isNew = isNew;
 	}
 	
 	@Override
 	public String toString(){
-		return ToStringBuilder.reflectionToString(this).toString();
+		Gson gson = new Gson();
+		return gson.toJson(this);
 	}
 	
 	@Override

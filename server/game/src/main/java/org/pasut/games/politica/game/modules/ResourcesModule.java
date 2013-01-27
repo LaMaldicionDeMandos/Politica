@@ -1,5 +1,6 @@
 package org.pasut.games.politica.game.modules;
 
+import org.pasut.games.politica.game.resources.ElectionResource;
 import org.pasut.games.politica.game.resources.FacebookIndexResource;
 import org.pasut.games.politica.game.resources.MobileIndexResource;
 
@@ -11,6 +12,7 @@ public class ResourcesModule extends AbstractModule {
 	protected void configure() {
 		bind(FacebookIndexResource.class);
 		bind(MobileIndexResource.class);
+		bind(ElectionResource.class);
 	}
 
 }

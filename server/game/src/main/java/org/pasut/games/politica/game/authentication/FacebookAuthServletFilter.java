@@ -69,7 +69,7 @@ public class FacebookAuthServletFilter implements Filter {
 											facebookUser.getUser_id(), 
 											facebookUser.getUser().getCountry(), 
 											facebookUser.getUser().getLocale());
-			user.setNew(true);
+			user.setIsNew(true);
 		}
 		finally{
 			request.setAttribute("user", user);
