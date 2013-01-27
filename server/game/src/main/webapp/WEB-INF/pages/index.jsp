@@ -15,6 +15,7 @@
 <body style="margin-left: 0;">
 <div id="fb-root"></div>
 <script>
+	var user = JSON.parse('<%= request.getAttribute("user") %>');	
 </script>
 <script>
 	(function() {
@@ -65,13 +66,16 @@
 </script>
 <script>
 function testNewElections(){
-	var user = JSON.parse('<%= request.getAttribute("user") %>');	
+	var size = $("#electionsSize").val();
 	$.ajax({
 		type : 'POST',
-		url : '../election/',
+		url : '../election/new/' + size,
 		dataType : 'json',
 		contentType : 'application/json',
-		data: JSON.stringify(user)
+		data: JSON.stringify(user),
+		success: function(election){
+			alert(election);
+		}
 	});
 }
 </script>
@@ -79,6 +83,15 @@ function testNewElections(){
 		<img src="../../assets/loading.gif">
 	</div>
 	<h1 id="hello"></h1>
+	<select id="electionsSize">
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+	</select>
 	<button onclick="testNewElections()">Prueba Nuevas Elecciones</button>
 </body>
 </html>

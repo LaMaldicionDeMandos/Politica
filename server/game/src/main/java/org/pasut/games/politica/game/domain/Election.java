@@ -1,8 +1,9 @@
 package org.pasut.games.politica.game.domain;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.pasut.persister.Entity;
+
+import com.google.gson.Gson;
 
 @Entity("elections")
 public class Election {
@@ -91,6 +92,6 @@ public class Election {
 	
 	@Override
 	public String toString(){
-		return ToStringBuilder.reflectionToString(this).toString();
+		return new Gson().toJson(this);
 	}
 }
