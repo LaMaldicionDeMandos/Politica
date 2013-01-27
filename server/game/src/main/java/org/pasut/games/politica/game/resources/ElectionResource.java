@@ -6,18 +6,32 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.pasut.games.politica.game.domain.Election;
 import org.pasut.games.politica.game.domain.User;
+import org.pasut.games.politica.game.service.ElectionsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 @Path("election")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Singleton
 public class ElectionResource {
-	Logger log = LoggerFactory.getLogger(ElectionResource.class);
+	private static Logger log = LoggerFactory.getLogger(ElectionResource.class);
+	
+	private final ElectionsService service; 
+	
+	@Inject
+	public ElectionResource(ElectionsService service){
+		this.service = service;
+	}
 	
 	@POST
 	public void newElection(User user){
-		log.info(String.format("Se crea una nueva Eleccion, el dueño es %s", new Object[]{user.getCode()} ));
+		log.info(String.format("Se crea una nueva Eleccion, el dueño es %1s, el tamaño es %d", new Object[]{user.getCode(), 4} ));
+		Election election = service.newElection(user, 4);
 	}
 }
