@@ -83,6 +83,7 @@ function testNewElections(){
 		<img src="../../assets/loading.gif">
 	</div>
 	<h1 id="hello"></h1>
+	<label>Candidatos:</label>
 	<select id="electionsSize">
 		<option value="2">2</option>
 		<option value="3">3</option>
@@ -92,6 +93,10 @@ function testNewElections(){
 		<option value="7">7</option>
 		<option value="8">8</option>
 	</select>
+	<label>Duración en semanas:</label>
+	<input id="life" type="number" />
+	<label>Fecha de Inicio:</label>
+	<input id="initDate" type="date" />
 	<button onclick="testNewElections()">Prueba Nuevas Elecciones</button>
 </body>
 </html>
