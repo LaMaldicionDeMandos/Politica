@@ -13,13 +13,12 @@ public class Election {
 	@JsonProperty("_id")
 	private String id;
 	
-	
 	private User owner;
 	private User[] users;
 	private int size;
 	private ElectionState state;
 	private int life;
-	private Date initDate;
+	private long initDate;
 	
 	
 	public Election(User owner, int size, int life){
@@ -30,6 +29,13 @@ public class Election {
 		this.addUser(owner);
 		this.state = ElectionState.INIT;
 		this.life = life;
+	}
+	
+	public boolean isFull(){
+		for(User user : users){
+			if(user==null) return false;
+		}
+		return true;
 	}
 	
 	public void addUser(User user){
@@ -50,7 +56,7 @@ public class Election {
 	public void active(){
 		if(state!=ElectionState.INIT) return;
 		state = ElectionState.ACTIVE;
-		initDate = new Date();
+		initDate = new Date().getTime();
 	}
 	
 	public String getId(){
@@ -107,20 +113,20 @@ public class Election {
 		this.life = life;
 	}
 	
-	public Date getInitDate(){
+	public long getInitDate(){
 		return initDate;
 	}
 	
-	public void setInitDate(Date date){
+	public void setInitDate(long date){
 		this.initDate = date;
 	}
 	
-	public Date getFinelizeDate(){
-		if(initDate==null) return null;
+	public long getFinelizeDate(){
+		if(initDate==0) return 0;
 		Calendar calendar = (Calendar)Calendar.getInstance().clone();
-		calendar.setTime(initDate);
+		calendar.setTime(new Date(initDate));
 		calendar.add(Calendar.WEEK_OF_YEAR, life);
-		return calendar.getTime();
+		return calendar.getTime().getTime();
 	}
 	
 	@Override

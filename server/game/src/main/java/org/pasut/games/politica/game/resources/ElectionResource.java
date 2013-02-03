@@ -1,6 +1,10 @@
 package org.pasut.games.politica.game.resources;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -31,9 +35,21 @@ public class ElectionResource {
 	}
 	
 	@POST
-	@Path("new/{size}")
-	public Election newElection(User user, @PathParam("size") int size){
-		log.info(String.format("Se crea una nueva Eleccion, el dueño es %1s, el tamaño es %2d", new Object[]{user.getCode(), size} ));
-		return service.newElection(user, size);
+	@Path("new/{size}/{life}")
+	public Election newElection(User user, @PathParam("size") int size, @PathParam("life") int life){
+		log.info(String.format("Se crea una nueva Eleccion, el dueño es %1s, el tamaño es %2d y dura %3d semanas", new Object[]{user.getCode(), size, life}));
+		return service.newElection(user, size, life);
+	}
+	
+	@GET
+	@Path("available")
+	public List<Election> searchAvailable(){
+		return service.searchAvailable(new Date().getTime());
+	}
+	
+	@POST
+	@Path("myAvailable")
+	public List<Election> searchAvailable(User owner){
+		return service.searchAvailable(new Date().getTime(), owner);
 	}
 }

@@ -18,7 +18,7 @@ public class ElectionTest {
 		user1 = new User("User1");
 		user2 = new User("User2");
 		user3 = new User("User3");
-		election = new Election(owner, 4);
+		election = new Election(owner, 4, 4);
 		election.addUser(user1);
 		election.addUser(user2);
 	}
@@ -37,6 +37,17 @@ public class ElectionTest {
 		election.addUser(user3);
 		assertEquals(4, election.getLenght());
 		assertEquals(user3, election.getUsers()[3]);
+	}
+	
+	@Test
+	public void testIsFull(){
+		election.addUser(user3);
+		assertTrue(election.isFull());
+	}
+
+	@Test
+	public void testNotFull(){
+		assertFalse(election.isFull());
 	}
 
 }

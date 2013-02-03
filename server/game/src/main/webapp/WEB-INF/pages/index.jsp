@@ -40,9 +40,10 @@
 	  	FB.getLoginStatus(function(response){
 	  		FB.api('/me', function(response) {
 	  			var domTitle = $('#hello');
+	  			var body = $('#body');
 	  			$('#loadingPanel').hide();
 	  			domTitle.text("Hola " + response.name);
-	  			domTitle.show(); 
+	  			body.show(); 
 	  			
 	  			/* FB.api('/' + response.id + '/friends', function(response){
 	  				FB.api('/' + response.data[0].id + '/friends', function(response){
@@ -62,19 +63,50 @@
 	     js.src = "//connect.facebook.net/en_US/all.js";
 	     ref.parentNode.insertBefore(js, ref);
 	   }(document));
-	  $('#hello').hide();
 </script>
 <script>
 function testNewElections(){
 	var size = $("#electionsSize").val();
+	var life = $("#life").val();
 	$.ajax({
 		type : 'POST',
-		url : '../election/new/' + size,
+		url : '../election/new/' + size + '/' + life,
 		dataType : 'json',
 		contentType : 'application/json',
 		data: JSON.stringify(user),
-		success: function(election){
-			alert(election);
+		success: function(election){}
+	});
+}
+
+function testAvailableElections(){
+	$.ajax({
+		type : 'GET',
+		url : '../election/available',
+		dataType : 'json',
+		contentType : 'application/json',
+		success: function(elections){
+			var container = $('#electionsContainer');
+			container.empty();
+			for(var i=0;i<elections.length;i++){
+				container.append("<div>"+elections[i].id+"</div>");
+			}
+		}
+	});
+}
+
+function testMyAvailableElections(){
+	$.ajax({
+		type : 'POST',
+		url : '../election/myAvailable',
+		dataType : 'json',
+		contentType : 'application/json',
+		data: JSON.stringify(user),
+		success: function(elections){
+			var container = $('#myElectionsContainer');
+			container.empty();
+			for(var i=0;i<elections.length;i++){
+				container.append("<div>"+elections[i].id+"</div>");
+			}
 		}
 	});
 }
@@ -82,21 +114,49 @@ function testNewElections(){
 	<div id=loadingPanel class="loading">
 		<img src="../../assets/loading.gif">
 	</div>
-	<h1 id="hello"></h1>
-	<label>Candidatos:</label>
-	<select id="electionsSize">
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>
-		<option value="7">7</option>
-		<option value="8">8</option>
-	</select>
-	<label>Duración en semanas:</label>
-	<input id="life" type="number" />
-	<label>Fecha de Inicio:</label>
-	<input id="initDate" type="date" />
-	<button onclick="testNewElections()">Prueba Nuevas Elecciones</button>
+	<div id="body">
+		<h1 id="hello"></h1>
+		<div>
+			<h2>Nuevas Elecciones</h2>
+			<label>Candidatos:</label>
+			<select id="electionsSize">
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+			</select>
+			<label>Duración en semanas:</label>
+			<select id="life">
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="10">10</option>
+				<option value="12">12</option>
+				<option value="15">15</option>
+				<option value="20">20</option>
+			</select>
+			<label>Fecha de Inicio:</label>
+			<input id="initDate" type="date" />
+			<button onclick="testNewElections()">Prueba Nuevas Elecciones</button>
+		</div>
+		<h2>Search Available Elections</h2>
+		<div>
+			<button onclick="testAvailableElections()">Search</button>
+			<div id="electionsContainer"></div>
+		</div>
+		<h2>Search My Available Elections</h2>
+		<div>
+			<button onclick="testMyAvailableElections()">Search</button>
+			<div id="myElectionsContainer"></div>
+		</div>
+	</div>
 </body>
+<script>
+$('#body').hide();
+</script>
 </html>

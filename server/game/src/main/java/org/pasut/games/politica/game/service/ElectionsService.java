@@ -1,5 +1,7 @@
 package org.pasut.games.politica.game.service;
 
+import java.util.List;
+
 import org.pasut.games.politica.game.domain.Election;
 import org.pasut.games.politica.game.domain.User;
 
@@ -11,5 +13,8 @@ public interface ElectionsService {
 	 * @param size The max Election size
 	 * @return Election with Id
 	 */
-	Election newElection(User owner, int size);
+	Election newElection(User owner, int size, int life);
+	
+	List<Election> searchAvailable(long date);
+	List<Election> searchAvailable(long date, User owner);
 }
