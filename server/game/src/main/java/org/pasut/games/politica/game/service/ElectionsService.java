@@ -15,6 +15,35 @@ public interface ElectionsService {
 	 */
 	Election newElection(User owner, int size, int life);
 	
-	List<Election> searchAvailable(long date);
-	List<Election> searchAvailable(long date, User owner);
+	/**
+	 * Search all available Election without user, available is not active 
+	 * @param date current date
+	 * @param user User
+	 * @return List of available Election without the current user
+	 */
+	List<Election> searchAvailableWithoutUser(long date, User user);
+	
+	/**
+	 * Search all available Election with user, available is not active 
+	 * @param date current date
+	 * @param user User
+	 * @return List of available Election with the current user
+	 */
+	List<Election> searchAvailableWithUser(long date, User owner);
+	
+	/**
+	 * Search all active Election with user 
+	 * @param date current date
+	 * @param user User
+	 * @return List of active Election with current user
+	 */
+	List<Election> searchActiveWithUser(long date, User owner);
+	
+	/**
+	 * Search all active Election with user as owner 
+	 * @param date current date
+	 * @param user User
+	 * @return List of active Election with user owner
+	 */
+	List<Election> searchMyAvailable(long date, User owner);
 }

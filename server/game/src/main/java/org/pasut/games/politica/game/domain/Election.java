@@ -53,10 +53,44 @@ public class Election {
 		}
 	}
 	
-	public void active(){
-		if(state!=ElectionState.INIT) return;
-		state = ElectionState.ACTIVE;
-		initDate = new Date().getTime();
+	public boolean readyToActivate(long date){
+		if(state!=ElectionState.INIT) return false;
+		return initDate == 0 || initDate <= date;
+	}
+	
+	public boolean readyToActivate(){
+		return readyToActivate(new Date().getTime());
+	}
+	
+	public void activate(long date){
+		if(readyToActivate(date)){
+			state = ElectionState.ACTIVE;
+			initDate = date;			
+		}
+	}
+	
+	public void activate(){
+		activate(new Date().getTime());
+	}
+	
+	public void end(){
+		end(new Date().getTime());
+	}
+	
+	public void end(long date){
+		if(readyToEnd(date)) state = ElectionState.ENDED;
+	}
+	
+	public boolean readyToEnd(long date){
+		if(state!=ElectionState.ACTIVE) return false;
+		Calendar calendar = (Calendar)Calendar.getInstance().clone();
+		calendar.setTime(new Date(initDate));
+		calendar.add(Calendar.WEEK_OF_YEAR, life);
+		return date > calendar.getTimeInMillis();
+	}
+	
+	public boolean readyToEnd(){
+		return readyToEnd(new Date().getTime());
 	}
 	
 	public String getId(){
@@ -126,7 +160,7 @@ public class Election {
 		Calendar calendar = (Calendar)Calendar.getInstance().clone();
 		calendar.setTime(new Date(initDate));
 		calendar.add(Calendar.WEEK_OF_YEAR, life);
-		return calendar.getTime().getTime();
+		return calendar.getTimeInMillis();
 	}
 	
 	@Override

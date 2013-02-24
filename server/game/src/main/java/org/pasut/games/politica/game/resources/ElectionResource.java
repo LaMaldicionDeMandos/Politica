@@ -42,14 +42,14 @@ public class ElectionResource {
 	}
 	
 	@GET
-	@Path("available")
-	public List<Election> searchAvailable(){
-		return service.searchAvailable(new Date().getTime());
+	@Path("available/")
+	public List<Election> searchAvailable(User user){
+		return service.searchAvailableWithoutUser(new Date().getTime(), user);
 	}
 	
 	@POST
 	@Path("myAvailable")
-	public List<Election> searchAvailable(User owner){
-		return service.searchAvailable(new Date().getTime(), owner);
+	public List<Election> searchMyAvailable(User owner){
+		return service.searchMyAvailable(new Date().getTime(), owner);
 	}
 }
