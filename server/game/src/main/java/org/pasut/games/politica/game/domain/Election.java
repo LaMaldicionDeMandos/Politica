@@ -13,6 +13,7 @@ public class Election {
 	@JsonProperty("_id")
 	private String id;
 	
+	private String name;
 	private User owner;
 	private User[] users;
 	private int size;
@@ -21,14 +22,19 @@ public class Election {
 	private long initDate;
 	
 	
-	public Election(User owner, int size, int life){
+	public Election(User owner, String name, int size, int life){
 		if(size<=1) throw new IllegalArgumentException("Election Size must be greatet than 1 and was " + size);
+		this.name = name;
 		this.size = size;
 		this.owner = owner;
 		this.users = new User[size];
 		this.addUser(owner);
 		this.state = ElectionState.INIT;
 		this.life = life;
+	}
+	
+	public boolean isOwner(User user){
+		return this.owner.equals(user);
 	}
 	
 	public boolean isFull(){
@@ -91,6 +97,10 @@ public class Election {
 	
 	public boolean readyToEnd(){
 		return readyToEnd(new Date().getTime());
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 	public String getId(){
@@ -167,7 +177,7 @@ public class Election {
 	public boolean equals(Object o){
 		if(!(o instanceof Election)) return false;
 		Election e = (Election)o;
-		return (e.id == null && id == null && e.owner.equals(owner)
+		return (e.id == null && id == null && e.owner.equals(owner) && e.name.equals(name)
 				|| e.id.equals(id)
 				) ;
 	}

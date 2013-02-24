@@ -22,7 +22,7 @@ public class ElectionTest {
 		user1 = new User("User1");
 		user2 = new User("User2");
 		user3 = new User("User3");
-		election = new Election(owner, 4, 4);
+		election = new Election(owner, "test", 4, 4);
 		election.addUser(user1);
 		election.addUser(user2);
 		initDate = (Calendar)Calendar.getInstance().clone();

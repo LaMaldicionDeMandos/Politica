@@ -68,9 +68,10 @@
 function testNewElections(){
 	var size = $("#electionsSize").val();
 	var life = $("#life").val();
+	var name = $("#name").val();
 	$.ajax({
 		type : 'POST',
-		url : '../election/new/' + size + '/' + life,
+		url : '../election/new/' + size + '/' + life + '/' + name,
 		dataType : 'json',
 		contentType : 'application/json',
 		data: JSON.stringify(user),
@@ -80,15 +81,16 @@ function testNewElections(){
 
 function testAvailableElections(){
 	$.ajax({
-		type : 'GET',
+		type : 'POST',
 		url : '../election/available',
 		dataType : 'json',
 		contentType : 'application/json',
+		data: JSON.stringify(user),
 		success: function(elections){
 			var container = $('#electionsContainer');
 			container.empty();
 			for(var i=0;i<elections.length;i++){
-				container.append("<div>"+elections[i].id+"</div>");
+				container.append("<div>"+elections[i].name+"</div>");
 			}
 		}
 	});
@@ -105,11 +107,41 @@ function testMyAvailableElections(){
 			var container = $('#myElectionsContainer');
 			container.empty();
 			for(var i=0;i<elections.length;i++){
-				container.append("<div>"+elections[i].id+"</div>");
+				container.append("<div id='" + elections[i].id + "' onclick=\"testActiveElection('" + elections[i].id + "')\">"+elections[i].name+"</div>");
 			}
 		}
 	});
-}
+};
+
+function testMyActiveElections(){
+	$.ajax({
+		type : 'POST',
+		url : '../election/myActive',
+		dataType : 'json',
+		contentType : 'application/json',
+		data: JSON.stringify(user),
+		success: function(elections){
+			var container = $('#myActiveElectionsContainer');
+			container.empty();
+			for(var i=0;i<elections.length;i++){
+				container.append("<div>"+elections[i].name+"</div>");
+			}
+		}
+	});
+};
+
+function testActiveElection(id){
+	$.ajax({
+		type : 'POST',
+		url : '../election/active/' + id,
+		dataType : 'json',
+		contentType : 'application/json',
+		data: JSON.stringify(user),
+		success: function(election){
+			alert("Actived election: " + election.name);
+		}
+	});
+};
 </script>
 	<div id=loadingPanel class="loading">
 		<img src="../../assets/loading.gif">
@@ -142,6 +174,8 @@ function testMyAvailableElections(){
 			</select>
 			<label>Fecha de Inicio:</label>
 			<input id="initDate" type="date" />
+			<label>Nombre:</label>
+			<input id="name" type="text" />
 			<button onclick="testNewElections()">Prueba Nuevas Elecciones</button>
 		</div>
 		<h2>Search Available Elections</h2>
@@ -153,6 +187,11 @@ function testMyAvailableElections(){
 		<div>
 			<button onclick="testMyAvailableElections()">Search</button>
 			<div id="myElectionsContainer"></div>
+		</div>
+		<h2>Search My Active Elections</h2>
+		<div>
+			<button onclick="testMyActiveElections()">Search</button>
+			<div id="myActiveElectionsContainer"></div>
 		</div>
 	</div>
 </body>
