@@ -23,6 +23,16 @@
 		<param-name>resteasy.servlet.mapping.prefix</param-name>
 		<param-value>/rest/</param-value>
 	</context-param>
+	<context-param>
+		<param-name>resteasy.scan.providers</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>resteasy.providers</param-name>
+		<param-value>org.pasut.games.politica.game.providers.GsonMessageBodyHandler</param-value>
+	</context-param>
+		
 	<servlet>
 		<servlet-name>Resteasy</servlet-name>
 		<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>

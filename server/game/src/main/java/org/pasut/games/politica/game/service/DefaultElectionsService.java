@@ -24,6 +24,7 @@ import com.google.inject.Singleton;
 public class DefaultElectionsService implements ElectionsService {
 	private final Predicate initFilter = new InitElectionFilter();
 	private final Predicate activeFilter = new ActiveElectionFilter();
+	@SuppressWarnings("unused")
 	private final Predicate endFilter = new EndElectionFilter();
 	private final PersisterService db;
 	
